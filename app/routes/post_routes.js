@@ -2,7 +2,7 @@ const ObjectID = require('mongodb').ObjectID
 
 module.exports = function (app, db) {
   app.get('/posts/:id', (req, res) => {
-    const id = '5b3e95860283400014de321f'
+    const id = req.params.id
     const details = { 'title': new ObjectID(id) };
     db.collection('posts').findOne(details, (err, item) => {
       if (err) {
