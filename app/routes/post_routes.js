@@ -6,9 +6,16 @@ module.exports = function (app, db) {
     const details = { 'customId': id };
     db.collection('posts').findOne(details, (err, item) => {
       if (err) {
-        res.send({'error':'An error has occurred'});
+        res.send({'error':'An error has occurred'})
       } else {
-        res.send(item);
+        const response = {
+          statusCode: 200,
+          headers:  { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: {item}
+        }
+        db.collection('posts').update(details, { $inc: { views: 1 } })
+        console.log(response)
+        res.send(response)
       }
     })
   })
@@ -20,7 +27,7 @@ module.exports = function (app, db) {
 
     db.collection('posts').findOne(details, (err, item) => {
       if (err) {
-        res.send({'error':'An error has occurred'});
+        res.send({'error':'An error has occurred'})
       } else if (item) {
         console.log(item)
         const response = {
