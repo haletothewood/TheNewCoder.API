@@ -1,5 +1,3 @@
-const ObjectID = require('mongodb').ObjectID
-
 module.exports = function (app, db) {
   app.get('/posts/:id', (req, res) => {
     const id = req.params.id
@@ -13,8 +11,6 @@ module.exports = function (app, db) {
           headers:  { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: {item}
         }
-        db.collection('posts').update(details, { $inc: { views: 1 } })
-        console.log(response)
         res.send(response)
       }
     })
@@ -29,13 +25,11 @@ module.exports = function (app, db) {
       if (err) {
         res.send({'error':'An error has occurred'})
       } else if (item) {
-        console.log(item)
         const response = {
           statusCode: 200,
           headers:  { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: {item}
         }
-        console.log(response)
         res.send(response)
       } else {
         db.collection('posts').insert(post, (err, result) => {
@@ -47,5 +41,23 @@ module.exports = function (app, db) {
         })
       }
     })
+  })
+
+  app.patch('/posts/:id', (req, res) => {
+    const id = { 'customId': req.params.id };
+    const field = req.body.field
+    switch(field) {
+      case ("upvotes"):
+        db.collection('posts').update(id, { $inc: { upvotes: 1 } })
+        break
+      case("views"):
+        db.collection('posts').update(id, { $inc: { views: 1 } })
+        break
+    }
+    const response = {
+      statusCode: 200,
+      headers:  { 'Content-Type': 'application/x-www-form-urlencoded' },
+    }
+    res.send(response)
   })
 }
