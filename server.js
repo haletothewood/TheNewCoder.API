@@ -11,7 +11,7 @@ const port = 3030;
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(function (_, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://thenewcoder.netlify.com');
+  res.setHeader('Access-Control-Allow-Origin', 'https://thenewcoder.netlify.app');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', true);
