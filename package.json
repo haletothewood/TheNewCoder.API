@@ -16,7 +16,7 @@
     "express": "^4.16.3",
     "mongodb": "^2.2.16",
     "npm": "^6.1.0",
-    "snyk": "^1.230.5"
+    "snyk": "^1.324.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
